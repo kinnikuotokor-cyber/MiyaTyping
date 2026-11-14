@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ミヤタイピング</title>
+
+    <link rel="stylesheet" href="ミヤタイピング.css">
+</head>
+
+<body>
+
+<!-- =========================
+     タイトル画面
+========================= -->
+
+<div id="start-screen" class="screen">
+
+    <h1>Miya Typing</h1>
+
+    <button id="start-button" type="button">
+        START
+    </button>
+
+    <button id="settings-button" type="button">
+        SETTINGS
+    </button>
+
+</div>
+
+
+<!-- =========================
+     タイピング画面
+========================= -->
+
+<div id="game-screen" class="typing-screen hidden">
+
+    <!-- 問題番号・ミス表示 -->
+    <div class="game-info-row">
+
+        <p id="question-count-display">
+            1/30
+        </p>
+
+        <p id="massege" aria-live="polite"></p>
+
+    </div>
+
+
+    <!-- お題表示 -->
+    <p id="word-display">
+        <span id="typed-part"></span><span id="untyped-part"></span>
+    </p>
+
+
+    <!-- =========================
+         画面上の仮想キーボード
+    ========================= -->
+
+    <div id="virtual-keyboard" class="virtual-keyboard">
+
+
+        <!-- 数字段 -->
+        <div class="keyboard-row">
+
+            <div class="virtual-key" data-code="Digit1">1</div>
+            <div class="virtual-key" data-code="Digit2">2</div>
+            <div class="virtual-key" data-code="Digit3">3</div>
+            <div class="virtual-key" data-code="Digit4">4</div>
+            <div class="virtual-key" data-code="Digit5">5</div>
+            <div class="virtual-key" data-code="Digit6">6</div>
+            <div class="virtual-key" data-code="Digit7">7</div>
+            <div class="virtual-key" data-code="Digit8">8</div>
+            <div class="virtual-key" data-code="Digit9">9</div>
+            <div class="virtual-key" data-code="Digit0">0</div>
+            <div class="virtual-key" data-code="Minus">-</div>
+            <div class="virtual-key" data-code="Equal">^</div>
+            <div class="virtual-key" data-code="IntlYen">¥</div>
+
+        </div>
+
+
+        <!-- QWERTY上段 -->
+        <div class="keyboard-row">
+
+            <div class="virtual-key" data-code="KeyQ">Q</div>
+            <div class="virtual-key" data-code="KeyW">W</div>
+            <div class="virtual-key" data-code="KeyE">E</div>
+            <div class="virtual-key" data-code="KeyR">R</div>
+            <div class="virtual-key" data-code="KeyT">T</div>
+            <div class="virtual-key" data-code="KeyY">Y</div>
+            <div class="virtual-key" data-code="KeyU">U</div>
+            <div class="virtual-key" data-code="KeyI">I</div>
+            <div class="virtual-key" data-code="KeyO">O</div>
+            <div class="virtual-key" data-code="KeyP">P</div>
+            <div class="virtual-key" data-code="BracketLeft">@</div>
+            <div class="virtual-key" data-code="BracketRight">[</div>
+
+        </div>
+
+
+        <!-- ホームポジション -->
+        <div class="keyboard-row">
+
+            <div class="virtual-key" data-code="KeyA">A</div>
+            <div class="virtual-key" data-code="KeyS">S</div>
+            <div class="virtual-key" data-code="KeyD">D</div>
+            <div class="virtual-key" data-code="KeyF">F</div>
+            <div class="virtual-key" data-code="KeyG">G</div>
+            <div class="virtual-key" data-code="KeyH">H</div>
+            <div class="virtual-key" data-code="KeyJ">J</div>
+            <div class="virtual-key" data-code="KeyK">K</div>
+            <div class="virtual-key" data-code="KeyL">L</div>
+            <div class="virtual-key" data-code="Semicolon">;</div>
+            <div class="virtual-key" data-code="Quote">:</div>
+            <div class="virtual-key" data-code="Backslash">]</div>
+
+        </div>
+
+
+        <!-- 下段 -->
+        <div class="keyboard-row">
+
+            <div class="virtual-key keyboard-key--wide"
+                 data-code="ShiftLeft">Shift</div>
+
+            <div class="virtual-key" data-code="KeyZ">Z</div>
+            <div class="virtual-key" data-code="KeyX">X</div>
+            <div class="virtual-key" data-code="KeyC">C</div>
+            <div class="virtual-key" data-code="KeyV">V</div>
+            <div class="virtual-key" data-code="KeyB">B</div>
+            <div class="virtual-key" data-code="KeyN">N</div>
+            <div class="virtual-key" data-code="KeyM">M</div>
+            <div class="virtual-key" data-code="Comma">,</div>
+            <div class="virtual-key" data-code="Period">.</div>
+            <div class="virtual-key" data-code="Slash">/</div>
+            <div class="virtual-key" data-code="IntlRo">\</div>
+
+            <div class="virtual-key keyboard-key--wide"
+                 data-code="ShiftRight">Shift</div>
+
+        </div>
+
+
+        <!-- スペースキー -->
+        <div class="keyboard-row">
+
+            <div class="virtual-key keyboard-key--space"
+                 data-code="Space">
+                SPACE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         リアルタイム成績
+    ========================= -->
+
+<div id="live-stats" class="live-stats">
+
+    <div class="live-stat">
+        <span class="live-stat-label">経過時間</span>
+        <strong id="speed-time">0:00</strong>
+    </div>
+
+    <div class="live-stat">
+        <span class="live-stat-label">打鍵速度</span>
+        <strong id="speed-kps">0.0KPS(0.0/s)</strong>
+    </div>
+
+    <div class="live-stat">
+        <span class="live-stat-label">正確率</span>
+        <strong id="speed-accuracy">100.0%</strong>
+    </div>
+
+    <div class="live-stat">
+        <span class="live-stat-label">ミス回数</span>
+        <strong id="speed-misses">0回</strong>
+    </div>
+
+</div>
+
+
+    <!-- タイトルに戻るボタン -->
+    <button id="back" type="button">
+        戻ル
+    </button>
+
+</div>
+
+
+<!-- =========================
+     リザルト画面
+========================= -->
+
+<div id="result-screen" class="screen hidden">
+
+    <h2>RESULT</h2>
+
+    <p id="result-massage"></p>
+
+    <p id="result-speed"></p>
+
+    <button id="back-to-start" type="button">
+        タイトルへ
+    </button>
+
+</div>
+
+
+<!-- =========================
+     設定画面
+========================= -->
+
+<div id="setting-screen" class="screen hidden">
+
+
+    <!-- 出題数・ミス音 -->
+    <div class="setting-row">
+
+        <label for="question-count">
+            出題数
+        </label>
+
+        <input
+            type="number"
+            id="question-count"
+            min="1"
+            max="30"
+            step="1"
+            value="30"
+        >
+
+        <label for="miss-sound">
+            ミス音の種類
+        </label>
+
+        <select id="miss-sound">
+
+            <option value="default">
+                初期値
+            </option>
+
+            <option value="buzzer">
+                ブザー音
+            </option>
+
+            <option value="none">
+                なし
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- キーボード配列 -->
+    <div class="setting-row">
+
+        <label for="layout-select">
+            キーボード配列
+        </label>
+
+        <select id="layout-select">
+
+            <option value="qwerty" selected>
+                QWERTY配列(標準)
+            </option>
+
+            <option value="onishi">
+                大西配列
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- 保存ボタン -->
+    <button id="save-button" type="button">
+        保存して戻る
+    </button>
+
+</div>
+
+
+<!-- =========================
+     スタート待機画面
+========================= -->
+
+<div id="ready-screen" class="screen hidden">
+
+    <p>Press the spacebar to start</p>
+
+</div>
+
+
+<!-- JavaScript読み込み -->
+<script type="module" src="./ミヤタイピング.js"></script>
+
+</body>
+</html>

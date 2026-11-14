@@ -1,0 +1,510 @@
+.screen{
+    width:600px;
+    height:400px;
+    background-color:#afd459;
+    border-radius:10px;
+    margin:50px auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+.typing-screen{
+    width:600px;
+    height:400px;
+    background-color:#d6fcff;
+    border-radius:10px;
+    margin:50px auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    border: 3px solid #0000ff;
+}
+.setting-row{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    gap:20px;
+}
+#typed-part{
+    color:rgb(188, 40, 188);
+}
+#untyped-part{
+    color:black;
+}
+#massege{
+    color:red;
+}
+
+/* 画面上のキーボード全体(キー配置のcss👇)*/
+.virtual-keyboard {
+    width: min(100%, 700px);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+/* キーボードの各段 */
+.keyboard-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+}
+
+/* 個々のキー */
+.virtual-key {
+    flex: 1;
+    min-width: 0;
+    max-width: 48px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    color: #444;
+    border: 2px solid #999;
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    box-sizing: border-box;
+    user-select: none;
+    transition: background-color 0.08s;
+}
+
+/* Shiftキー */
+.keyboard-key--wide {
+    flex: 1.8;
+    max-width: 90px;
+}
+
+/* スペースキー */
+.keyboard-key--space {
+    flex: 4;
+    max-width: 250px;
+    height: 36px;
+}
+
+/* 押されているキー */
+.virtual-key.is-pressed {
+    background-color: #ff922e;
+    border-color: #e66b00;
+    color: white;
+    transform: translateY(2px);
+}
+
+/* 画面が狭い場合 */
+@media (max-width: 650px) {
+    .keyboard-row {
+        gap: 2px;
+    }
+
+    .virtual-key {
+        height: 32px;
+        font-size: 11px;
+        border-width: 1px;
+        border-radius: 5px;
+    }
+}
+#start-screen{
+    background-image:linear-gradient(
+        rgba(0,0,0,0.05),
+        rgba(0,0,0,0.25)
+    ),
+    url("./images/1280px宮島の神社の写真.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+#start-screen h1{
+    margin: 5px 0 auto;
+    color: #fff0cd;
+    font-size: 42px;
+    letter-spacing: 3px;
+
+    /* 文字を読みやすくする影 */
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 12px rgba(0, 0, 0, 0.5);
+
+    /* 半透明の背景 */
+    background-color: rgba(30, 45, 55, 0.3);
+    padding: 8px 20px;
+    border-radius: 12px;
+}
+
+/* タイトル画面のボタン共通設定 */
+#start-screen button {
+    width: 220px;
+    min-height: 52px;
+    padding: 12px 24px;
+
+    border: 2px solid rgba(255, 248, 231, 0.9);
+    border-radius: 14px;
+
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+
+    transition:
+        transform 0.2s,
+        background-color 0.2s,
+        box-shadow 0.2s;
+}
+
+/* STARTボタン：宮島の大鳥居の朱色 */
+#start-button {
+    background: linear-gradient(
+        135deg,
+        #bd5546,
+        #87352e
+    );
+    color: #fff8e7;
+}
+
+/* SETTINGSボタン：瀬戸内海の深い青 */
+#settings-button {
+    background: linear-gradient(
+        135deg,
+        #496b80,
+        #263f52
+    );
+    color: #fff8e7;
+}
+
+/* マウスを乗せたとき */
+#start-screen button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    filter: brightness(1.15);
+}
+
+/* クリックしたとき */
+#start-screen button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* キーボード操作で選択したとき */
+#start-screen button:focus-visible {
+    outline: 3px solid #fff8e7;
+    outline-offset: 4px;
+}
+
+/* ゲーム画面の配置基準 */
+#game-screen {
+    position: relative;
+}
+
+/* 問題番号と速度ボタン */
+.game-info-row {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 速度を見るボタン */
+#speed-button {
+    background-color: #385D75;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 速度表示パネル */
+.speed-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: min(85%, 360px);
+    box-sizing: border-box;
+    padding: 20px;
+
+    background-color: rgba(38, 59, 80, 0.97);
+    color: #fff8e7;
+
+    border: 2px solid #e6c878;
+    border-radius: 15px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    z-index: 50;
+}
+
+.speed-panel h3 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.speed-panel p {
+    font-size: 16px;
+    margin: 12px 0;
+}
+
+.speed-panel button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+
+    background-color: #a44235;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* リザルトの速度表示 */
+#result-speed {
+    white-space: pre-line;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* ゲーム画面を大型化 */
+#game-screen {
+    width: min(960px, calc(100vw - 32px));
+    height: auto;
+    min-height: 650px;
+
+    box-sizing: border-box;
+    padding: 24px;
+
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 12px;
+
+    margin: 30px auto;
+}
+
+/* 問題番号とMISS表示 */
+.game-info-row {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#question-count-display {
+    font-size: 16px;
+    font-weight: bold;
+    color: #385D75;
+    margin: 0;
+}
+
+#massege {
+    color: #d93636;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    min-height: 24px;
+}
+
+/* お題の表示 */
+#word-display {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* キーボード */
+#virtual-keyboard {
+    width: 100%;
+    max-width: 760px;
+    margin: 10px auto;
+}
+
+/* リアルタイム成績 */
+.live-stats {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+
+    margin: 12px 0;
+}
+
+/* 成績カード */
+.live-stat {
+    background-color: white;
+    border: 1px solid #b6c9d0;
+    border-radius: 10px;
+
+    padding: 12px 6px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.live-stat span {
+    font-size: 13px;
+    color: #607782;
+}
+
+.live-stat strong {
+    font-size: 22px;
+    color: #263f52;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 小さい画面への対応 */
+@media (max-width: 700px) {
+
+    #game-screen {
+        padding: 12px;
+        min-height: 600px;
+    }
+
+    .live-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .live-stat:last-child {
+        grid-column: span 2;
+    }
+
+    #word-display {
+        font-size: 24px;
+    }
+}
+/* ゲーム画面の戻るボタン */
+#back {
+    align-self: flex-start;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-width: 120px;
+    padding: 11px 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+
+    background: linear-gradient(
+        135deg,
+        #294c70,
+        #142d49
+    );
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+/* 左矢印 */
+#back::before {
+    content: "←";
+    font-size: 18px;
+}
+
+/* マウスを乗せたとき */
+#back:hover {
+    background: linear-gradient(
+        135deg,
+        #3b6792,
+        #203f60
+    );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* クリックしたとき */
+#back:active {
+    transform: translateY(1px);
+
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* キーボードで選択したとき */
+#back:focus-visible {
+    outline: 3px solid #8ccaff;
+    outline-offset: 3px;
+}
+/* KPS表示が枠からはみ出さないようにする */
+.live-stat {
+    min-width: 0;
+}
+
+/* 打鍵速度の文字サイズを調整 */
+#speed-kps {
+    display: block;
+    font-size: clamp(11px, 1.5vw, 15px);
+    white-space: nowrap;
+    letter-spacing: -0.04em;
+}
+/* ホームポジションの目印を付けるための基準 */
+.virtual-key {
+    position: relative;
+}
+
+/* ホームポジションの線 */
+.virtual-key.home-position::after {
+    content: "";
+
+    position: absolute;
+
+    width: 35%;
+    height: 3px;
+
+    left: 50%;
+    bottom: 5px;
+
+    transform: translateX(-50%);
+
+    background: #3b82f6;
+    border-radius: 999px;
+
+    pointer-events: none;
+}
+.hidden{/* hiddenは必ずしたに置け */
+    display:none;
+}
