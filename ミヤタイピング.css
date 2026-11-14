@@ -505,6 +505,19 @@
 
     pointer-events: none;
 }
+/* 広告エリア */
+.ad-area {
+    width: 100%;
+    margin: 24px auto;
+    text-align: center;
+}
+
+/* 広告のラベル */
+.ad-label {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
 .hidden{/* hiddenは必ずしたに置け */
     display:none;
 }
