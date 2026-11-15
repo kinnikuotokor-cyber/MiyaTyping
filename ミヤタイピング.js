@@ -471,12 +471,70 @@ const virtualKeyboard =
 // 設定画面から配列選択欄を取得
 const layoutSelect =
     document.getElementById("layout-select");
+// 指ごとの担当キー
+const fingerKeyMap = {
 
+    // 左手
+    "finger-left-pinky": [
+        "Digit1", "KeyQ", "KeyA", "KeyZ"
+    ],
+
+    "finger-left-ring": [
+        "Digit2", "KeyW", "KeyS", "KeyX"
+    ],
+
+    "finger-left-middle": [
+        "Digit3", "KeyE", "KeyD", "KeyC"
+    ],
+
+    "finger-left-index": [
+        "Digit4", "Digit5",
+        "KeyR", "KeyT", "KeyF", "KeyG", "KeyV", "KeyB"
+    ],
+
+    // 右手
+    "finger-right-index": [
+        "Digit6", "Digit7",
+        "KeyY", "KeyU", "KeyH", "KeyJ", "KeyN", "KeyM"
+    ],
+
+    "finger-right-middle": [
+        "Digit8", "KeyI", "KeyK", "Comma"
+    ],
+
+    "finger-right-ring": [
+        "Digit9","Digit0","Minus","Equal","KeyO", "KeyL", "Period",
+    ],
+
+    "finger-right-pinky": [
+    "KeyP",
+    "BracketLeft",
+    "BracketRight",
+    "Semicolon",
+    "Quote",
+    "Slash",
+    "Backslash",
+    "IntlRo",
+    "IntlYen"
+],
+
+    // 親指
+    "finger-thumb": [
+        "Space"
+    ]
+
+};
 // 配列に応じてキーボード表示を変更する関数
 function updateVirtualKeyboard() {
 
     virtualKeyboard.querySelectorAll(".virtual-key").forEach((key) => {
-        key.classList.remove("home-position");
+
+        // 前回の指の色とホームポジションをリセット
+        key.classList.remove(
+            "home-position",
+            ...Object.keys(fingerKeyMap)
+        );
+
         // 元々の文字を保存
         if (key.dataset.originalLabel === undefined) {
             key.dataset.originalLabel = key.textContent;
@@ -493,11 +551,38 @@ function updateVirtualKeyboard() {
             key.textContent = key.dataset.originalLabel;
         }
 
-    });
-    // 大西配列のホームポジション表示
-if (activeKeyMap === onishiKeyMap) {
+        // その物理キーを担当する指の色を付ける
+        for (const [fingerClass, codes] of Object.entries(fingerKeyMap)) {
 
-    // 大西配列で o と t が割り当てられた物理キーを探す
+            if (codes.includes(code)) {
+                key.classList.add(fingerClass);
+                break;
+            }
+
+        }
+
+    });
+
+// ホームポジションの下線表示
+
+if (activeKeyMap === qwertyKeyMap) {
+
+    // QWERTY配列：FとJ
+    ["KeyF", "KeyJ"].forEach((code) => {
+
+        const key = virtualKeyboard.querySelector(
+            `[data-code="${code}"]`
+        );
+
+        if (key) {
+            key.classList.add("home-position");
+        }
+
+    });
+
+} else if (activeKeyMap === onishiKeyMap) {
+
+    // 大西配列：OとTが割り当てられている物理キー
     Object.entries(onishiKeyMap).forEach(([code, char]) => {
 
         if (char === "o" || char === "t") {
@@ -509,10 +594,13 @@ if (activeKeyMap === onishiKeyMap) {
             if (key) {
                 key.classList.add("home-position");
             }
+
         }
 
     });
+
 }
+
 }
 
 // 配列を切り替える関数
@@ -533,34 +621,65 @@ applyKeyboardLayout("qwerty");
 // キーを押したとき
 document.addEventListener("keydown", (event) => {
 
-    // ゲーム画面が表示されていないときは何もしない
     if (gameScreen.classList.contains("hidden")) {
         return;
     }
 
-    // 押された物理キーと同じキーを取得
+    const code = getVirtualKeyCode(event);
+
     const pressedKey = virtualKeyboard.querySelector(
-        `[data-code="${event.code}"]`
+        `[data-code="${code}"]`
     );
 
-    // 対応するキーがあれば色を変更
     if (pressedKey) {
         pressedKey.classList.add("is-pressed");
     }
-});
 
+});
+// Shiftキーの左右を判別する関数
+function getVirtualKeyCode(event) {
+
+    if (event.key === "Shift") {
+
+        // 左Shift
+        if (
+            event.code === "ShiftLeft" ||
+            event.location === 1
+        ) {
+            return "ShiftLeft";
+        }
+
+        // 右Shift
+        if (
+            event.code === "ShiftRight" ||
+            event.location === 2
+        ) {
+            return "ShiftRight";
+        }
+
+        // ブラウザが右Shiftの位置を判定できない場合
+        // 今回の診断結果に合わせて右Shiftとして扱う
+        if (event.code === "" && event.location === 0) {
+            return "ShiftRight";
+        }
+    }
+
+    return event.code;
+}
 // キーを離したとき
 document.addEventListener("keyup", (event) => {
 
+    const code = getVirtualKeyCode(event);
+
     const releasedKey = virtualKeyboard.querySelector(
-        `[data-code="${event.code}"]`
+        `[data-code="${code}"]`
     );
 
     if (releasedKey) {
         releasedKey.classList.remove("is-pressed");
     }
-});
 
+});
 // ブラウザからフォーカスが外れたとき
 // 押されたままの表示が残らないようにする
 window.addEventListener("blur", () => {
@@ -572,4 +691,3 @@ window.addEventListener("blur", () => {
 
 });
 const wordDisplay = document.getElementById("word-display");
-

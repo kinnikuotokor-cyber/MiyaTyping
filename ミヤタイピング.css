@@ -505,13 +505,114 @@
 
     pointer-events: none;
 }
+/* 左手：小指 */
+.virtual-key.finger-left-pinky {
+    background-color: #f8d1d1;
+    border-color: #dd9999;
+}
+
+/* 左手：薬指 */
+.virtual-key.finger-left-ring {
+    background-color: #ffe0bd;
+    border-color: #dfb47f;
+}
+
+/* 左手：中指 */
+.virtual-key.finger-left-middle {
+    background-color: #fff0b8;
+    border-color: #d8c36c;
+}
+
+/* 左手：人差し指 */
+.virtual-key.finger-left-index {
+    background-color: #d7edc9;
+    border-color: #9cbd89;
+}
+
+/* 右手：人差し指 */
+.virtual-key.finger-right-index {
+    background-color: #cce7fa;
+    border-color: #83b8dd;
+}
+
+/* 右手：中指 */
+.virtual-key.finger-right-middle {
+    background-color: #dcd4fa;
+    border-color: #a99bd8;
+}
+
+/* 右手：薬指 */
+.virtual-key.finger-right-ring {
+    background-color: #f4d3eb;
+    border-color: #d7a3c9;
+}
+
+/* 右手：小指 */
+.virtual-key.finger-right-pinky {
+    background-color: #dedede;
+    border-color: #aaaaaa;
+}
+
+/* 親指 */
+.virtual-key.finger-thumb {
+    background-color: #c8e9e6;
+    border-color: #88bdb7;
+}
+
+/* 押しているキーはオレンジ色を優先 */
+.virtual-key.is-pressed {
+    background-color: #ff922e;
+    border-color: #e66b00;
+    color: white;
+}
+/* タイトル画面を大型化 */
+#start-screen {
+    width: min(800px, calc(100vw - 32px));
+    height: 500px;
+    box-sizing: border-box;
+}
+
+/* スマホ対応 */
+@media (max-width: 650px) {
+
+    #start-screen {
+        width: calc(100vw - 24px);
+        height: min(70vh, 500px);
+        min-height: 360px;
+        margin: 24px auto;
+    }
+
+}
+/* 設定画面をタイトル画面と同じ大きさにする */
+#setting-screen {
+    width: min(800px, calc(100vw - 32px));
+    height: 500px;
+    box-sizing: border-box;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 650px) {
+
+    #setting-screen {
+        width: calc(100vw - 24px);
+        height: min(70vh, 500px);
+        min-height: 360px;
+        margin: 24px auto;
+    }
+
+    #setting-screen .setting-row {
+        flex-wrap: wrap;
+        gap: 10px 14px;
+    }
+
+}
 /* 広告エリア */
 .ad-area {
     width: 100%;
     margin: 24px auto;
     text-align: center;
+    /* display: none;編集・テスト中は広告を非表示ならnone */
 }
-
 /* 広告のラベル */
 .ad-label {
     color: #777;
