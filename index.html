@@ -192,7 +192,6 @@
 
 </div>
 
-
     <!-- タイトルに戻るボタン -->
     <button id="back" type="button">
         戻ル
@@ -200,22 +199,65 @@
 
 </div>
 
-
 <!-- =========================
      リザルト画面
 ========================= -->
 
 <div id="result-screen" class="screen hidden">
 
-    <h2>RESULT</h2>
+    <div class="result-panel">
 
-    <p id="result-massage"></p>
+        <h2 class="result-title">
+            ＜タイピング結果＞
+        </h2>
 
-    <p id="result-speed"></p>
+        <p id="result-massage" class="result-message"></p>
 
-    <button id="back-to-start" type="button">
-        タイトルへ
-    </button>
+        <!-- 成績一覧 -->
+        <div id="result-speed" class="result-stats">
+
+            <div class="result-stat">
+                <span>KPS</span>
+                <strong id="result-kps">0.0</strong>
+            </div>
+
+            <div class="result-stat">
+                <span>問題数</span>
+                <strong id="result-questions">0</strong>
+            </div>
+
+            <div class="result-stat">
+                <span>正確率</span>
+                <strong id="result-accuracy">100.0%</strong>
+            </div>
+
+            <div class="result-stat">
+                <span>打鍵数</span>
+                <strong id="result-attempts">0</strong>
+            </div>
+
+            <div class="result-stat">
+                <span>時間</span>
+                <strong id="result-time">0:00</strong>
+            </div>
+
+            <div class="result-stat">
+                <span>ミス</span>
+                <strong id="result-misses">0回</strong>
+            </div>
+
+        </div>
+
+        <!-- ★ここに移動する -->
+        <button id="retry-missed" class="hidden" type="button">
+            ミスした単語のみ再挑戦
+        </button>
+
+        <button id="back-to-start" type="button">
+            タイトルへ戻る
+        </button>
+
+    </div>
 
 </div>
 
@@ -314,9 +356,7 @@
 
     <p class="ad-label">広告だ</p>
 
-<!-- 編集・テスト中はAdMaxを読み込まない-->
 <script src="https://adm.shinobi.jp/s/3cc70a6f91dfc99a51dc72236d03f79c"></script>
-
 
 </div>
 
